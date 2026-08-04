@@ -1,0 +1,29 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6d8bff"/>
+      <stop offset="1" stop-color="#a67bff"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#g)"/>
+  <g fill="#ffffff">
+    <!-- Finder patterns (top-left, top-right, bottom-left) -->
+    <path d="M13 13h14v14H13V13zm3.5 3.5v7h7v-7h-7z"/>
+    <rect x="18.5" y="18.5" width="3" height="3"/>
+    <path d="M37 13h14v14H37V13zm3.5 3.5v7h7v-7h-7z"/>
+    <rect x="42.5" y="18.5" width="3" height="3"/>
+    <path d="M13 37h14v14H13V37zm3.5 3.5v7h7v-7h-7z"/>
+    <rect x="18.5" y="42.5" width="3" height="3"/>
+    <!-- Data modules -->
+    <rect x="31" y="31" width="4" height="4"/>
+    <rect x="38" y="31" width="4" height="4"/>
+    <rect x="47" y="31" width="4" height="4"/>
+    <rect x="31" y="38" width="4" height="4"/>
+    <rect x="42" y="38" width="4" height="4"/>
+    <rect x="47" y="38" width="4" height="4"/>
+    <rect x="37" y="42" width="4" height="4"/>
+    <rect x="31" y="47" width="4" height="4"/>
+    <rect x="42" y="47" width="4" height="4"/>
+    <rect x="47" y="47" width="4" height="4"/>
+  </g>
+</svg>

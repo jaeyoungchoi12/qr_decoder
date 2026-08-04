@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QR Decoder · Decode QR codes instantly</title>
+  <meta name="description" content="Drag and drop or attach an image to decode QR codes instantly, right in your browser." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="apple-touch-icon" href="favicon.svg" />
+  <meta name="theme-color" content="#0b0f1a" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <main class="container">
+    <div class="lang-switcher" id="langSwitcher">
+      <button class="lang-btn" id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Select language">
+        <svg class="lang-globe" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M3 12h18M12 3c2.5 2.5 3.8 5.7 3.8 9S14.5 18.5 12 21c-2.5-2.5-3.8-5.7-3.8-9S9.5 5.5 12 3z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span id="langLabel">English</span>
+        <svg class="lang-caret" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <ul class="lang-menu" id="langMenu" role="listbox" aria-label="Language" hidden>
+        <li class="lang-option" role="option" data-lang="ko">한국어</li>
+        <li class="lang-option" role="option" data-lang="en">English</li>
+        <li class="lang-option" role="option" data-lang="zh">中文</li>
+        <li class="lang-option" role="option" data-lang="ja">日本語</li>
+      </ul>
+    </div>
+
+    <header class="header">
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.6"/>
+          <rect x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.6"/>
+          <rect x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.6"/>
+          <rect x="5.5" y="5.5" width="2" height="2" fill="currentColor"/>
+          <rect x="16.5" y="5.5" width="2" height="2" fill="currentColor"/>
+          <rect x="5.5" y="16.5" width="2" height="2" fill="currentColor"/>
+          <path d="M14 14h3v3h-3zM18 14h3M14 18v3M18 18h3v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h1>QR Decoder</h1>
+      <p class="subtitle" data-i18n="subtitle">Drag and drop an image or click to upload a QR code image.</p>
+    </header>
+
+    <section
+      id="dropzone"
+      class="dropzone"
+      role="button"
+      tabindex="0"
+      data-i18n-attr="aria-label:dropzoneAria"
+      aria-label="QR image upload area. Drag and drop a file or click to select."
+    >
+      <input type="file" id="fileInput" accept="image/*" hidden />
+      <div class="dropzone-inner">
+        <div class="upload-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 16V4m0 0L7 9m5-5l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M4 15v2.5A2.5 2.5 0 006.5 20h11a2.5 2.5 0 002.5-2.5V15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <p class="dz-title" data-i18n="dzTitle">Drag your QR image here</p>
+        <p class="dz-sub" data-i18n-html="dzSub">or <span class="dz-link">click to choose a file</span> · <kbd>Ctrl/⌘</kbd> + <kbd>V</kbd> to paste</p>
+        <p class="dz-formats">PNG · JPG · WEBP · GIF · SVG</p>
+      </div>
+      <div class="dropzone-overlay">
+        <p data-i18n="dropHere">Drop it here</p>
+      </div>
+    </section>
+
+    <section id="preview" class="preview" hidden>
+      <div class="preview-head">
+        <span class="preview-label" data-i18n="previewLabel">Preview</span>
+        <button id="clearBtn" class="ghost-btn" type="button" data-i18n="clear">Clear</button>
+      </div>
+      <div class="preview-canvas-wrap">
+        <img id="previewImg" alt="업로드한 QR 이미지 미리보기" />
+      </div>
+    </section>
+
+    <section id="result" class="result" aria-live="polite"></section>
+  </main>
+
+  <footer class="footer">
+    <span data-i18n="footer">Everything runs in your browser · Images are never sent to a server</span>
+  </footer>
+
+  <a
+    class="promo-banner"
+    href="https://www.coffeeracing.co.kr/"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Speedy Paws Race - 동물 달리기·수영 경주 게임 바로가기"
+  >
+    <img src="assets/coffeeracing-banner.png" alt="직장인 필수 커피 내기 · 도파민 폭발! 5초 한 판 승부 - 지금 바로 도전!" loading="lazy" />
+  </a>
+
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
